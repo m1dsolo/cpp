@@ -1,0 +1,39 @@
+#include <iostream>
+#include <cmath>
+#include <unordered_set>
+
+using namespace std;
+
+const int N = 2e7;
+
+bool visited[N + 1];
+int cnt = 0;
+int primes[1e6];
+
+int main() {
+    int left, right;
+    cin >> left >> right;
+    unordered_set<int> set;
+    for (int i = 2; i <= right; i++) {
+	if (!visited[i]) {
+	    primes[cnt++] = i;
+	    set.insert(i);
+	}
+	for (int j = 0; j < cnt && i * primes[j] <= right; j++) {
+	    visited[i * primes[j]] = true;
+	    if (!(i % primes[j]))
+		break;
+	}
+    }
+    int max_i = sqrt(right);
+    int rst = 0;
+    for (int i = 1; i <= max_i; i++) {
+	for (int j = 1; j <= i; j++) {
+	    if (set.count(i * i + j * j))
+		rst++;
+	}
+    }
+    cout << rst << endl;
+
+    return 0;
+}

@@ -1,0 +1,29 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+// 质数一定是6 * x - 1或者6 * x + 1这种形式
+bool is_prime(int n) {
+    if (n <= 3) return n > 1;
+    if (n % 6 != 1 && n % 6 != 5) return false;
+
+    int max_i = sqrt(n);
+    for (int i = 6; i <= max_i; i += 6) {
+	cout << n % (i - 1) << " " << n % (i + 1) << endl;
+	if (!(n % (i - 1)) || !(n % (i + 1)))
+	    return false;
+    }
+
+    return true;
+}
+
+int main() {
+    //for (int i = 1; i <= 100; i++)
+	//if (is_prime(i)) cout << i << " ";
+    //cout << endl;
+
+    cout << is_prime(35) << endl;
+
+    return 0;
+}

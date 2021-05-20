@@ -1,0 +1,1 @@
+gcc test.c database.c ../vector/vector.c ../pair/pair.c -I/.. -lsqlite3 -g -o test

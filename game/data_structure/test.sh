@@ -1,0 +1,1 @@
+gcc *.c */*.c -g -fms-extensions -I/. -o test
