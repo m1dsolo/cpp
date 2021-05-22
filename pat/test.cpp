@@ -6,9 +6,8 @@
 using namespace std;
 
 int main() {
-    int a = 1, b = a;
-
-    cout << a << " " << b << endl;
+    string s;
+    cout << !s.length() << " " << s << endl;
 
     return 0;
 }
