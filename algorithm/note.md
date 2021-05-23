@@ -86,13 +86,14 @@ cpp:
 13. dp完全背包两重for顺序问题：
 // 01背包
 for (int coin : coins) {
-    for (int i = amount; i >= coin; i--) {
+    for (int i = amount; i >= coin; i--) {	// 反着循环保证了amount的时候只取coin一次
 	dp[i] += dp[i - coin];
     }
 }
+
 // 完全背包求组合
 for (int coin : coins)
-    for (int i = coin; i <= amount; i++) {
+    for (int i = coin; i <= amount; i++) {	// 正着循环可以使得amount的时候存在取coin多次的情况
 	dp[i] += dp[i - coin];
     }
 }
@@ -233,3 +234,9 @@ for (int i = 0; i <= n; i++) {
     dij最短路计数和记录最大权值路径 l2 1001
 
 41. 次短路：luogu 2865(严格次短路(有回路))
+
+42. 二分图判断leetcode 985(用并查集，染色法没试过)
+    二分图最大配hagarian luogu3386
+    二分图一定不存在奇数环，不存在奇数环一定是二分图
+
+    求连通块个数(dfs，visited数组换为color，区别就是visited只有两种状态，color有3种，这就是染色法(存在两个相邻节点同色为奇数环也就是二分图))
