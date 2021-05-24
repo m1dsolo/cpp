@@ -16,7 +16,6 @@ int main() {
 	    s |= s << w[i];
     }
 
-    cout << s << endl;
     printf("Total=%d\n", s.count() - 1);
 
     return 0;

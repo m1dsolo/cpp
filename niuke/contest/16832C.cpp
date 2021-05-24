@@ -1,3 +1,4 @@
+// 复杂度O(n^2)太高了
 #include <iostream>
 #include <unordered_map>
 
@@ -27,12 +28,8 @@ int main() {
     int n, k;
     scanf("%d %d", &n, &k);
     int max_i = n / k, rst = 0;
-    for (int i = 1; i <= max_i; i++) {
-	//int val = dfs(n - i * k, i - 1);
-	//cout << i << " " << val << endl;
-	//rst += val;
+    for (int i = 1; i <= max_i; i++)
 	rst = (rst + dfs(n - i * k, i - 1)) % mod;
-    }
 
     printf("%d\n", rst);
 
