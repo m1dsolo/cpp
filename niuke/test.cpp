@@ -1,13 +1,17 @@
 #include <iostream>
-//#include <algorithm>
-#include <map>
+#include <set>
 
 using namespace std;
 
 int main() {
-    map<int, int> m;
+    set<int> set;
+    auto it = set.insert(2);
 
-    cout << (m.upper_bound(2) == m.end()) << endl;
+    cout << *it << " " << it.second << endl;
+
+    it = set.insert(2);
+
+    cout << *it.first << " " << it.second << endl;
 
     return 0;
 }

@@ -21,9 +21,23 @@ ll inv(ll a) {
     return qpow(a, mod - 2);
 }
 
+const int N = 100;
+int invs[N];
+
+void helper() {
+    invs[1] = 1;
+    for (int i = 2; i < N; i++)
+	invs[i] = (ll)(mod - mod / i) * invs[mod % i] % mod;
+}
+
 int main() {
     for (int i = 1; i <= 10; i++)
-	cout << inv(i) << endl;
+	cout << inv(i) << " ";
+    cout << endl;
+    helper();
+    for (int i = 1; i <= 10; i++)
+	cout << invs[i] << " ";
+    cout << endl;
 
     return 0;
 }
