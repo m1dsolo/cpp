@@ -8,12 +8,11 @@ using ll = long long;
 
 
 int main() {
-    vector<int> v{1, 2, 3, 4, 5}, rst(5);
+    int rst = 0, k = 2;
+    for (int i = 1; i <= 10000; i++)
+	rst += k % i;
 
-    partial_sum(v.begin(), v.end(), rst.begin());
-
-    for (int i = 0; i < 5; i++)
-	cout << rst[i] << endl;
+    cout << rst << endl;
 
 
     return 0;

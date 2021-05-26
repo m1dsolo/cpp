@@ -3,14 +3,13 @@
 
 using namespace std;
 
-void helper(int a, int b) {
-    printf("%d %d\n", a, b);
-}
-
 int main() {
-    int n = 3;
-    helper(n, n++);
-    // helper(n++, n);
+    int a = 1;
+    char s[2];
+    int b = 2;
+    scanf("%s", s);
+
+    cout << s[0] << " " << s[1] << " " << a << ' ' << b << endl;
 
     return 0;
 }
