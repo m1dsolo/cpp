@@ -2,17 +2,20 @@
 #include <unordered_map>
 #include <numeric>
 #include <vector>
+#include <cstring>
+#include <climits>
 
 using namespace std;
 using ll = long long;
 
+string s;
 
 int main() {
-    int rst = 0, k = 2;
-    for (int i = 1; i <= 10000; i++)
-	rst += k % i;
+    ll arr[3] = {0};
+    memset(arr, 0x3f, sizeof(ll));
+    memset(arr + 1, -0x3f, sizeof(ll));
 
-    cout << rst << endl;
+    cout << (double)arr[0] / LONG_MAX << " " << (double)arr[1] / LONG_MIN << " " << arr[2] << endl;
 
 
     return 0;

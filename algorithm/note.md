@@ -107,7 +107,7 @@ for (int i = 0; i <= n; i++) {
 一般情况下组合小于排列数
 例如：1, 1, 2和1, 2, 1是同一种组合，但却是两种排列
 
-// 多重背包
+// 多重背包(luogu 1776)
 // https://www.cnblogs.com/-guz/p/9866118.html
 // (1)二进制优化：例如将19个重量为v的物品分解为重量为v, 2v, 4v, 8v, 3v这5个物品，因为这5个物品01背包可以代表19个。(复杂度从v * sigma(m) -> v * sigma(logm)), v为总体积，m为i物品个数
 // (2)单调队列优化(v * n), n为物品种数
@@ -259,3 +259,17 @@ for (int i = 0; i < n; i++) {	    // 枚举分组
 43. 单调队列求滑动窗口最值 luogu 1886
 
 44. 找树的重心，并且统计所有点到重心的距离和：luogu 1395
+
+45. 树上两条路径相交，一定其中一条路径lca在另外一条路径上 luogu3398
+    判断是否相交dis(u1, v1) + dis(u2, v2) >= dis(u1, u2) + dis(v1, v2)
+    树上任意两点最短路：depth[u] + depth[v] - 2 * depth[lca(u, v)];
+    树上三点的最短集合重心：两两lca最深的那个。luogu 4281
+
+46. tarjan求缩点(同时DAGdp) luogu 3387(用stack存)
+    tarjan求割点 luogu 3388 (u == root && child >= 2 || u != root && low[v] >= dfn[u])
+    tarjan求割边(桥) luogu 1656(当且仅当low[v] > dfn[u])
+
+47. 最多不重叠区间: leetcode 435(贪心,右面位置越少能装下的越多，O(logn))
+
+48. 平方和公式：1 ** 2 + 2 ** 2 + ... + n ** 2 == n(n + 1)(2n + 1) / 6
+

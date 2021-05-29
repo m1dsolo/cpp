@@ -7,9 +7,10 @@
 using namespace std;
 
 int main() {
-    int a = 1000000000;
-    int b = 2e9;
-    printf("%d", a + b);
+    int arr[2];
+    memset(arr, -0x3f, sizeof(int));
+
+    cout << arr[0] << " " << arr[1] << endl;
 
     return 0;
 }

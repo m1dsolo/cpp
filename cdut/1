@@ -1,0 +1,22 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    int n, rst;
+    cin >> n;
+    string a, b;
+    while (n--) {
+	cin >> a >> b;
+	int tmp = 0, rst;
+	while ((tmp = a.find(b, tmp)) != -1) {
+	    rst = tmp;
+	    if (tmp += b.length() >= a.length())
+		break;
+	}
+	cout << rst << endl;
+    }
+
+    return 0;
+}

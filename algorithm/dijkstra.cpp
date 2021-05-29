@@ -43,6 +43,5 @@ int main() {
     }
     min_len = dis[d];
 
-
     return 0;
 }

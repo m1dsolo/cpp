@@ -1,0 +1,53 @@
+#include <iostream>
+
+using namespace std;
+
+const int N = 100;
+char s[N] = "abcabc";
+int nexts[N];
+
+void get_next (int len) {
+    int i=0,j=-1;
+    nexts[0] = -1;
+    while(i<len){
+	if(j==-1 || s[i]==s[j]){
+	    i++;j++;
+	    nexts[i] = j;
+	}else
+	    j = nexts[j];
+    }
+}
+
+//void get_next(int len)///求next数组
+//{
+    //int j = 0,k = -1;
+    //nexts[0] = -1;
+    //while(j < len)
+    //{
+        //if(k == -1 || s[j] == s[k])
+        //{
+            //j++;k++;
+            //nexts[j] = k;
+        //}
+        //else k = nexts[k];
+    //}
+//}
+int main() {
+    get_next(6);
+
+    for (int i = 0; i < 6; i++) {
+	if (!(i % (i - nexts[i])) && nexts[i]) {
+	    cout << i << " " << i - nexts[i] << " " << i / (i - nexts[i]) << endl;
+	}
+    }
+
+    //for(int i = 2; i < 6; i++)
+        //{
+            //int ans = i-nexts[i];///计算出循环节的长度
+            //if(i/ans > 1 && i%ans == 0)///周期要大于1并且前缀的长度必须是循环节长度的倍数
+                //printf("%d %d\n",i,i/ans);
+        //}
+        //printf("\n");
+
+    return 0;
+}
