@@ -1,3 +1,4 @@
+// https://www.luogu.com.cn/blog/duoluoluo/solution-p2661
 #include <iostream>
 #include <numeric>
 #include <climits>
