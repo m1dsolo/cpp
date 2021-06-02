@@ -69,6 +69,7 @@ int main() {
     for (int i = 1; i <= n; i++)
 	if (!dfn[i]) tarjan(i);
 
+    // unordered_set<pair<int, int>, hash_pair> set;	    // 可以防止边重复
     for (int u = 1; u <= n; u++) {
 	for (int v : adj[u]) {
 	    if (bl[u] != bl[v]) {

@@ -22,7 +22,7 @@ ll qpow(ll a, ll n) {
 // C(n, m), n is below
 // O((n + m)*logn) (n + m可以用阶乘表)
 ll C(ll n, ll m) {
-    //return f[n] % mod * qpow(f[n - m], mod - 2) % mod * qpow(f[m], mod - 2) % mod;
+    //return f[n] * qpow(f[n - m], mod - 2) % mod * qpow(f[m], mod - 2) % mod;
     ll x = 1, y = 1;
     for (int i = n; i > n - m; i--)
 	x = x * i % mod;
