@@ -4,7 +4,8 @@
 
 using namespace std;
 
-long long n = 2021041820210418;
+// long long n = 2021041820210418;
+long long n = 9;
 
 int main() {
     vector<long long> v;

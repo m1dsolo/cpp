@@ -1,44 +1,66 @@
-// https://zhuanlan.zhihu.com/p/106118909
+// 根节点值小，子树值大
 #include <iostream>
-#include <vector>
 #include <climits>
 
 using namespace std;
 
 const int N = 100;
-int arr[N], tree[N << 2], mark[N << 2], n;
 
-void push_down(int p, int len) {
-    tree[p << 1] += mark[p] * (len - (len >> 1));
-    tree[p << 1 | 1] += mark[p] * (len >> 1);
-    mark[p << 1] += mark[p];
-    mark[p << 1 | 1] += mark[p];
-    mark[p] = 0;
-}
+int n;
+int arr[N];
+
+struct node {
+    int sum = 0;
+    int max = 0;
+    int min = INT_MAX;
+    node() {}
+    node(int a) : sum(a), max(a), min(a) {}
+    node(int sum, int max, int min) : sum(sum), max(max), min(min) {}
+} nodes[N << 2];
+
+struct tag {
+    int add = 0;
+    tag() {}
+    tag(int add) : add(add) {}
+} tags[N << 2];
+
+node nn(const node &n1, const node &n2) {return {.sum = n1.sum + n2.sum, .max = max(n1.max, n2.max), .min = min(n1.min, n2.min)};}
+node nt(const node &n, const tag &t, int len) {return {.sum = n.sum + t.add * len, .max = n.max + t.add, .min = n.min + t.add};}
+tag tt(const tag &t1, const tag &t2) {return {.add = t1.add + t2.add};}
 
 void build(int p = 1, int cl = 1, int cr = n) {
-    if (cl == cr) {tree[p] = arr[cl]; return;}
+    if (cl == cr) {nodes[p] = {arr[cl]}; return;}
     int mid = (cl + cr) >> 1;
     build(p << 1, cl, mid);
     build(p << 1 | 1, mid + 1, cr);
-    tree[p] = tree[p << 1] + tree[p << 1 | 1];
+    nodes[p] = nn(nodes[p << 1], nodes[p << 1 | 1]);
 }
 
-void update(int l, int r, int d, int p = 1, int cl = 1, int cr = n) {
-    if (cl >= l && cr <= r) {tree[p] += d * (cr - cl + 1), mark[p] += d; return;}
+void push_down(int p, int len) {
+    nodes[p << 1] = nt(nodes[p << 1], tags[p], len - (len >> 1));
+    nodes[p << 1 | 1] = nt(nodes[p << 1 | 1], tags[p], len >> 1);
+    tags[p << 1] = tt(tags[p << 1], tags[p]);
+    tags[p << 1 | 1] = tt(tags[p << 1 | 1], tags[p]);
+
+    tags[p] = tags[0];
+}
+
+void update(int l, int r, const tag &t, int p = 1, int cl = 1, int cr = n) {
+    if (cl >= l && cr <= r) {nodes[p] = nt(nodes[p], t, cr - cl + 1); tags[p] = tt(tags[p], t); return;}
     push_down(p, cr - cl + 1);
     int mid = (cl + cr) >> 1;
-    if (mid >= l) update(l, r, d, p << 1, cl, mid);
-    if (mid < r) update(l, r, d, p << 1 | 1, mid + 1, cr);
-    tree[p] = tree[p << 1] + tree[p << 1 | 1];
+    if (mid >= l) update(l, r, t, p << 1, cl, mid);
+    if (mid < r) update(l, r, t, p << 1 | 1, mid + 1, cr);
+    nodes[p] = nn(nodes[p << 1], nodes[p << 1 | 1]);
 }
 
-int query(int l, int r, int p = 1, int cl = 1, int cr = n) {
-    if (cl >= l && cr <= r) return tree[p];
+node query(int l, int r, int p = 1, int cl = 1, int cr = n) {
+    if (cl >= l && cr <= r) return nodes[p];
     push_down(p, cr - cl + 1);
-    int mid = (cl + cr) >> 1, rst = 0;
-    if (mid >= l) rst += query(l, r, p << 1, cl, mid);
-    if (mid < r) rst += query(l, r, p << 1 | 1, mid + 1, cr);
+    int mid = (cl + cr) >> 1;
+    node rst;
+    if (mid >= l) rst = nn(rst, query(l, r, p << 1, cl, mid));
+    if (mid < r) rst = nn(rst, query(l, r, p << 1 | 1, mid + 1, cr));
     return rst;
 }
 
@@ -48,13 +70,20 @@ int main() {
     for (int i = 1; i <= n; i++)
 	scanf("%d", &arr[i]);
     build();
+
+    for (int i = 1; i <= 2 * n; i++)
+	cout << nodes[i].max << " ";
+    cout << endl;
+
+    int c, l, r, a;
     while (m--) {
-	int o, l, r, d;
-	scanf("%d %d %d", &o, &l, &r);
-	if (o == 1)
-	    scanf("%d", &d), update(l, r, d);
-	else
-	    printf("%d\n", query(l, r));
+	scanf("%d %d %d", &c, &l, &r);
+	if (c == 1)
+	    scanf("%d", &a), update(l, r, {a});
+	else {
+	    node rst = query(l, r);
+	    printf("%d %d %d\n", rst.sum, rst.max, rst.min);
+	}
     }
 
     return 0;

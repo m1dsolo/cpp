@@ -1,25 +1,29 @@
+// 因数分解 O(sqrt(n))
 #include <iostream>
-#include <cmath>
-#include <vector>
 
 using namespace std;
+using ll = long long;
+
+const int N = 1e6;
+
+int f[N], cnt;
 
 int main() {
-    long long n;
+    ll n;
     cin >> n;
-    int max_i = sqrt(n);
-    vector<int> factors;
-    for (int i = 1; i < max_i; i++) {
+    int i;
+    for (i = 1; i < n / i; i++) {
 	if (!(n % i)) {
-	    factors.emplace_back(i);
-	    factors.emplace_back(n / i);
+	    f[cnt++] = i;
+	    f[cnt++] = n / i;
 	}
     }
-    if ((long long)max_i * max_i == n)
-	factors.emplace_back(max_i);
+    if (i * i == n)
+	f[cnt++] = i;
 
-    for (int factor : factors)
-	cout << factor << endl;
+    for (int i = 0; i < cnt; i++)
+	cout << f[i] << " ";
+    cout << endl;
 
     return 0;
 }

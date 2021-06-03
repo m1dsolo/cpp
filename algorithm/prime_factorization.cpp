@@ -1,48 +1,28 @@
-// 质因数分解
-
+// 质因数分解 O(sqrt(n))
 #include <iostream>
-#include <vector>
-#include <sstream>
 
 using namespace std;
+using ll = long long;
 
-vector<int> primes;
+const int N = 1e6;
 
-// 欧拉筛
-void sieve(int n) {
-    vector<bool> is_prime(n + 1, true);
-    for (int i = 2; i <= n; i++) {
-	if (is_prime[i]) 
-	    primes.push_back(i);
-	for (int j = 0; j < primes.size() && i * primes[j] <= n; j++) {
-	    is_prime[i * primes[j]] = false;
-	    if (!(i % primes[j]))
-		break;
-	}
-    }
-}
+int f[N], nums[N], cnt;
 
 int main() {
-    int a, b;
-    cin >> a >> b;
-    sieve(b);
-
-    for (int i = a; i <= b; i++) {
-	int val = i;
-	stringstream rst;
-	rst << val << "=";
-	int j = 0;
-	while (val != primes[j]) {
-	    if (!(val % primes[j])) {
-		val /= primes[j];
-		rst << primes[j] << '*';
-	    }
-	    else
-		j++;
+    ll n;
+    cin >> n;
+    for (int i = 2; i <= n / i; i++) {
+	if (!(n % i)) cnt++;
+	while (!(n % i)) {
+	    f[cnt] = i;
+	    nums[cnt]++;
+	    n /= i;
 	}
-	rst << primes[j];
-	cout << rst.str() << endl;
     }
+    if (n > 1) f[++cnt] = n, nums[cnt] = 1;
+
+    for (int i = 1; i <= cnt; i++)
+	cout << f[i] << " " << nums[i] << endl;
 
     return 0;
 }
