@@ -7,9 +7,7 @@ using namespace std;
 bool is_prime(int n) {
     if (n <= 3) return n > 1;
     if (n % 6 != 1 && n % 6 != 5) return false;
-
-    int max_i = sqrt(n);
-    for (int i = 5; i <= max_i; i += 6) {
+    for (int i = 5; i <= n / i; i += 6) {
 	if ((!(n % i)) || (!(n % (i + 2))))
 	    return false;
     }

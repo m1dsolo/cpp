@@ -23,7 +23,6 @@ int lca(int a, int b) {
     while (ds[a] > ds[b])
 	a = ps[a][lg[ds[a] - ds[b]] - 1];		// 统一深度
     if (a == b) return a;
-
     for (int i = lg[ds[a]] - 1; i >= 0; i--)	// 一起向上跳
 	if (ps[a][i] != ps[b][i])
 	    a = ps[a][i], b = ps[b][i];
@@ -40,7 +39,7 @@ int main() {
 	adj[v].emplace_back(u);
     }
 
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i < N; i++)
 	lg[i] = lg[i - 1] + (1 << lg[i - 1] == i);
     dfs(s, 0);
 

@@ -26,7 +26,7 @@ void euler_sieve() {
     for (int i = 2; i < N; i++) {
 	if (!visited[i])
 	    primes[cnt++] = i;
-	for (int j = 0; j < cnt && primes[j] * i < N; j++) {
+	for (int j = 0; primes[j] * i < N; j++) {   // j < cnt没必要
 	    visited[primes[j] * i] = true;
 	    if (!(i % primes[j]))	// break防止12被4筛掉，让6筛
 		break;

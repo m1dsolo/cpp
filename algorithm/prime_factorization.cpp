@@ -18,6 +18,7 @@ int main() {
 	    nums[cnt]++;
 	    n /= i;
 	}
+	if (a == 1) break;
     }
     if (n > 1) f[++cnt] = n, nums[cnt] = 1;
 
